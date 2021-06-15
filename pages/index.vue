@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <client-only>
-      <div class="map-container">
+      <div class="map-container" style="position: relative;">
         <div id="map" ref="map" class="map h-screen w-screen z-0"></div>
         <div v-if="map">
           <div v-for="(plugin, idx) in listPlugins" :key="idx">
@@ -17,7 +17,7 @@
 import Vue from 'vue'
 import axios from 'axios'
 export default {
-  data() {
+  data: function() {
     return {
       map: null,
       option: {
@@ -26,7 +26,10 @@ export default {
         zoomControl: false
       },
       listPlugins: [
-
+        {
+          name: "dataComponent",
+          path: "http://localhost:8080/"
+        },
       ]
     }
   },
