@@ -1,34 +1,61 @@
 <template>
-  <div class="container">
-    <div>
-      <Logo />
-      <h1 class="title">
-        lrs-map
-      </h1>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--grey"
-        >
-          GitHub
-        </a>
+  <div class="app-container">
+    <client-only>
+      <div class="map-container">
+        <div id="map" ref="map" class="map h-screen w-screen z-0"></div>
+        <div v-if="map">
+          <div v-for="(plugin, idx) in listPlugins" :key="idx">
+            <component :is="plugin.name"/>
+          </div>
+        </div>
       </div>
-    </div>
+    </client-only>
   </div>
 </template>
 
 <script>
-export default {}
+import Vue from 'vue'
+import axios from 'axios'
+export default {
+  data() {
+    return {
+      map: null,
+      option: {
+        zoom: 5,
+        center: [0.7893, 118.9213],
+        zoomControl: false
+      },
+      listPlugins: [
+
+      ]
+    }
+  },
+  mounted() {
+    this.listPlugins.forEach((el) => {
+      Vue.component(el.name, function(resolve, reject) {
+        axios.get(el.path)
+          .then((response) => {
+            resolve({
+              template: response.data
+            });
+          });
+      });
+    });
+
+    process.nextTick(() => {
+      this.map = L.map(this.$refs.map, this.option);
+      window.globalMap = this.map;
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        minZoom: 3,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      }).addTo(this.map);
+    });
+  },
+  destroyed() {
+    delete window.globalMap;
+  }
+}
 </script>
 
 <style>
