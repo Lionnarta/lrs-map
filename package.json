@@ -6,13 +6,15 @@
     "dev": "nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
-    "generate": "nuxt generate"
+    "generate": "nuxt generate",
+    "deploy": "push-dir --dir=dist --branch=gh-pages --cleanup"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.13.1",
     "core-js": "^3.9.1",
     "leaflet": "^1.7.1",
-    "nuxt": "^2.15.3"
+    "nuxt": "^2.15.3",
+    "push-dir": "^0.4.1"
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^4.0.1",
