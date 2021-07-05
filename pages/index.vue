@@ -108,6 +108,10 @@ export default {
   padding-top: 15px;
 }
 
+.leaflet-container.crosshair-cursor-enabled {
+    cursor:crosshair;
+}
+
 .font-rubik {
   font-family: 'Rubik', sans-serif;
 }
