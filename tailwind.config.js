@@ -25,7 +25,7 @@ module.exports = {
                 'bg-white', 'bg-black', 'bg-gray-300', 'bg-gray-100', 'bg-red-600',
                 'border-b', 'border', 'border-white',
                 'text-white',
-                'hover:bg-gray-200', 'hover:bg-gray-100', 'hover:opacity-70',
+                'hover:text-gray-600', 'hover:bg-gray-200', 'hover:bg-gray-100', 'hover:opacity-70', 'hover:fill-current',
                 'focus:outline-none', 'focus:border-red-500',
                 // Transition
                 'transition',
@@ -41,5 +41,8 @@ module.exports = {
             1000: 1000,
             'auto': 'auto'
         }
+    },
+    variants: {
+        fill: ['hover', 'focus']
     }
 }
